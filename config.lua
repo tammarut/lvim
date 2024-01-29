@@ -422,7 +422,8 @@ formatters.setup({
 })
 
 local lsp_manager = require("lvim.lsp.manager")
-lsp_manager.setup("golangci_lint_ls", {
+-- lsp_manager.setup("golangci_lint_ls", {
+lsp_manager.setup("revive", {
     on_init = require("lvim.lsp").common_on_init,
     capabilities = require("lvim.lsp").common_capabilities(),
 })
@@ -457,7 +458,7 @@ linters.setup({
         command = "eslint_d",
         filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact", },
     },
-    -- { command = "revive", filetypes = { "go" } }
+    { command = "revive", filetypes = { "go" } }
 })
 
 -- ━━━━━━━━━━━━━━━━━━━━━━━━━
