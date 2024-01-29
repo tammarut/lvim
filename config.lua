@@ -182,7 +182,7 @@ lvim.builtin.which_key.mappings["t"] = {
 lvim.builtin.which_key.mappings["g"] = {
     name = "Git",
     -- g = { "<cmd>lua require 'lvim.core.terminal'.lazygit_toggle(12000)<cr>", "Lazygit" },
-    g = { "<cmd>Neogit<cr>", "Neogit" },
+    g = { "<cmd>Git<cr>", "Git Fugitive" },
     j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
     k = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk" },
     l = { "<cmd>GitBlameToggle<cr>", "Blame" },
@@ -266,7 +266,7 @@ lvim.builtin.terminal.active = true
 lvim.keys.normal_mode["<A-f>"] = ":NvimTreeFindFile<cr>"
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
--- lvim.builtin.nvimtree.setup.renderer.icons.webdev_colors = false
+lvim.builtin.nvimtree.setup.renderer.icons.webdev_colors = false
 lvim.builtin.nvimtree.setup.renderer.indent_markers = { enable = true }
 
 
@@ -495,7 +495,7 @@ lvim.plugins = {
     {
         "folke/trouble.nvim",
         dependencies = {
-            "kyazdani42/nvim-web-devicons",
+            "nvim-tree/nvim-web-devicons",
             "nvim-telescope/telescope.nvim",
         },
         event = "BufWinEnter",
@@ -528,14 +528,23 @@ lvim.plugins = {
         end,
     },
     {
-        "NeogitOrg/neogit",
-        dependencies = {
-            "nvim-lua/plenary.nvim",         -- required
-            "nvim-telescope/telescope.nvim", -- optional
-            "sindrets/diffview.nvim",        -- optional
-            "ibhagwan/fzf-lua",              -- optional
+        "tpope/vim-fugitive",
+        cmd = {
+            "G",
+            "Git",
+            "Gdiffsplit",
+            "Gread",
+            "Gwrite",
+            "Ggrep",
+            "GMove",
+            "GDelete",
+            "GBrowse",
+            "GRemove",
+            "GRename",
+            "Glgrep",
+            "Gedit"
         },
-        config = true
+        ft = { "fugitive" }
     },
     { "jose-elias-alvarez/typescript.nvim" }, -- additional functionality for typescript server (e.g. rename file & update imports)
     {
@@ -576,19 +585,15 @@ lvim.plugins = {
 
 -- vim.api.nvim_create_autocmd("FileType", {
 --   pattern = "zsh",
+--   pattern = { "NeogitCommitMessage" },
 --   callback = function()
 --     -- let treesitter use bash highlight for zsh files as well
 --     require("nvim-treesitter.highlight").attach(0, "bash")
+--     vim.opt_local.wrap = true
+--     vim.opt_local.spell = true
+--     vim.cmd "startinsert!"
 --   end,
 -- })
-vim.api.nvim_create_autocmd({ "FileType" }, {
-    pattern = { "NeogitCommitMessage" },
-    callback = function()
-        vim.opt_local.wrap = true
-        vim.opt_local.spell = true
-        vim.cmd "startinsert!"
-    end,
-})
 
 reload("user.surround")
 reload("user.indent-line")
