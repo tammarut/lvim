@@ -28,6 +28,10 @@ lvim.plugins = {
         end,
     },
     {
+        'nvim-telescope/telescope-frecency.nvim',
+        dependencies = { 'nvim-telescope/telescope.nvim', 'kkharji/sqlite.lua' },
+    },
+    {
         "sindrets/diffview.nvim",
         dependencies = "nvim-lua/plenary.nvim",
         event = "BufRead",
@@ -82,3 +86,8 @@ lvim.plugins = {
         event = "BufWinEnter",
     }
 }
+
+
+lvim.builtin.telescope.on_config_done = function(telescope)
+    pcall(telescope.load_extension, "frecency")
+end
